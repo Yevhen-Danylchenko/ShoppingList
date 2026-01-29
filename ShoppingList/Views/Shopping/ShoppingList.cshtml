@@ -1,0 +1,50 @@
+﻿@model IEnumerable<ShoppingList.Models.Item>
+@{
+    ViewData["Title"] = "Shopping List";
+    var user = ViewBag.User as ShoppingList.Models.User;
+}
+
+<h2>Shopping List @if(user != null) {
+<span>for @user.Name</span>
+}
+</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>
+                <a asp-action="ShoppingList" asp-route-sortOrder="@ViewData["ProductNameSort"]">Product Name</a>
+            </th>
+            <th>
+                <a asp-action="ShoppingList" asp-route-sortOrder="@ViewData["ProductDescriptionSort"]">Description</a>
+            </th>
+            <th>
+                <a asp-action="ShoppingList" asp-route-sortOrder="@ViewData["ProductSortedSort"]">Sorted</a>
+            </th>
+            <th>
+                <a asp-action="ShoppingList" asp-route-sortOrder="@ViewData["PriceSort"]">Price</a>
+            </th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.ProductName</td>
+                <td>@item.ProductDescription</td>
+                <td>@item.ProductSorted</td>
+                <td>@item.Price</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-primary">Edit</a>
+                    <form asp-action="Delete" asp-route-id="@item.Id" method="post" style="display:inline">
+                        <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+

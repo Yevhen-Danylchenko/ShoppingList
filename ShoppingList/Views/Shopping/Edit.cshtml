@@ -1,0 +1,51 @@
+﻿@model ShoppingList.Models.Item
+
+@{
+    ViewData["Title"] = "Edit Item";
+}
+
+<h2>Edit Item</h2>
+
+<form asp-action="Edit" method="post">
+    <div class="form-group">
+        <label asp-for="ProductName" class="control-label"></label>
+        <input asp-for="ProductName" class="form-control" />
+        <span asp-validation-for="ProductName" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="ProductDescription" class="control-label"></label>
+        <input asp-for="ProductDescription" class="form-control" />
+        <span asp-validation-for="ProductDescription" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="ProductSorted" class="control-label"></label>
+        <select asp-for="ProductSorted" class="form-control">
+            <option value="Важливий">Важливий</option>
+            <option value="Середній">Середній</option>
+            <option value="Неважливий">Неважливий</option>
+        </select>
+        <span asp-validation-for="ProductSorted" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Price" class="control-label"></label>
+        <input asp-for="Price" class="form-control" />
+        <span asp-validation-for="Price" class="text-danger"></span>
+    </div>
+
+    <input type="hidden" asp-for="Id" />
+    <input type="hidden" asp-for="UserId" />
+
+    <div class="form-group mt-3">
+        <input type="submit" value="Save" class="btn btn-primary" />
+        <a asp-action="ShoppingList" asp-route-userId="@Model.UserId" class="btn btn-secondary">Back to List</a>
+    </div>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
