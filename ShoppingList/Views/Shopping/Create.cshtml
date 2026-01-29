@@ -1,34 +1,45 @@
-﻿@model IEnumerable<ShoppingList.Models.Item>
+﻿@model ShoppingList.Models.Item
+
 @{
-    ViewData["Title"] = "Creating List";
+    ViewData["Title"] = "Creating Item";
     var user = ViewBag.User as ShoppingList.Models.User;
 }
 
-<h2>Creating Shopping List @if(user != null) {
-    <span>for @user.Name</span>
-        }
-</h2>
-<div>
-    <h3>Add new item</h3>
-    <form asp-action="Create" method="post">
-        <input type="hidden" name="userId" value="@user?.Id" />
-        <div class="form-group">
-            <label>Product Name</label>
-            <input type="text" name="ProductName" class="form-control" required />
-        </div>
-        <div class="form-group">
-            <label>Description</label>
-            <input type="text" name="ProductDescription" class="form-control" />
-        </div>
-        <div class="form-group">
-            <label>Priority</label>
-            <input type="text" name="ProductSorted" class="form-control"/>
-        </div>
-        <div class="form-group">
-            <label>Price</label>
-            <input type="number" step="0.01" name="Price" class="form-control" />
-        </div>        
-        <button type="submit" class="btn btn-success">Add</button>
-    </form>
-</div>
+<h2>Create Item @if(user != null) { <span>for @user.Name</span> }</h2>
+
+<form asp-action="Create" method="post">
+    <input type="hidden" asp-for="UserId" value="@user?.Id" />
+
+    <div class="form-group">
+        <label asp-for="ProductName" class="control-label"></label>
+        <input asp-for="ProductName" class="form-control" />
+        <span asp-validation-for="ProductName" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="ProductDescription" class="control-label"></label>
+        <input asp-for="ProductDescription" class="form-control" />
+        <span asp-validation-for="ProductDescription" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="ProductSorted" class="control-label"></label>
+        <select asp-for="ProductSorted" class="form-control">
+            <option value="Важливий">Важливий</option>
+            <option value="Середній">Середній</option>
+            <option value="Неважливий">Неважливий</option>
+        </select>
+        <span asp-validation-for="ProductSorted" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Price" class="control-label"></label>
+        <input asp-for="Price" class="form-control" />
+        <span asp-validation-for="Price" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-success">Add</button>
+</form>
+
+
 
